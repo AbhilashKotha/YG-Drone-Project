@@ -21,6 +21,8 @@ The application that we build will have the following features to start with.
 * Control the plane with two control wheels which are used to alter parameters yaw, pitch, roll, and Throttle
 * Disarm the plane
 
+
+
 ## Process diagram
 
 The image shown below shows how our mobile application works at the basic level. Everything outside the dotted rectangular box is external to the system that we are going to build.
