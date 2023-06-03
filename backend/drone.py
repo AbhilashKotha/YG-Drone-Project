@@ -14,7 +14,7 @@ class DroneController:
     def __del__(self):
         if hasattr(self, 'vehicle'):
             self.vehicle.close()
-
+    #arm vehicle
     def arm_vehicle(self):
         """
         This method is used to arm the vehicle.
