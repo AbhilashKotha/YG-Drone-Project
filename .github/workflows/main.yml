@@ -36,6 +36,7 @@ jobs:
       - name: Install buildozer
         run: |
             pip install --user buildozer
+            pip install --user cython
 
       - name: Build and deploy Android app
         run: |
