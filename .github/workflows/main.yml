@@ -33,16 +33,16 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       
+      - name: Install buildozer
+        run: |
+            pip install --user buildozer
 
       - name: Build and deploy Android app
         run: |
           cd kivi_app
 
           # Build and deploy the app using Buildozer
-          buildozer android debug deploy run --name "drone_remote_controller"
-
-          # Install the APK on the emulator
-          adb install bin/drone_remote_controller-debug.apk
+          $HOME/.local/bin/buildozer android debug deploy run --name "drone_remote_controller"
 
       - name: Move APK to release folder
         run: |
