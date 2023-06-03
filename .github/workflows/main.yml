@@ -1,7 +1,6 @@
 name: DRONE REMOTE
 
 on:
-
   push:
     branches: [main]
     paths-ignore:
@@ -16,8 +15,6 @@ on:
     tags:
       - 'v*'
 
-        
-        
 jobs:
   android-release:
     runs-on: ubuntu-latest
@@ -32,14 +29,16 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      
+
       - name: Install dependencies
         run: |
-            pip install --upgrade pip
-            pip install -r requirements.txt
-            cd kivi_app
-            pip install -r requirements.txt
-          
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          cd kivi_app
+          pip install -r requirements.txt
+
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses
 
       - name: Build and deploy Android app
         run: |
