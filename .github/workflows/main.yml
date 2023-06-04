@@ -28,8 +28,23 @@ jobs:
           run: |
             zip -r release.zip .
         
-        - name: Upload release.zip as artifact
-          uses: actions/upload-artifact@v2
+        - name: Create Release
+          id: create_release
+          uses: actions/create-release@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            name: release-artifact
-            path: release.zip
+            tag_name: ${{ github.ref }}
+            release_name: Release ${{ github.ref }}
+            draft: false
+            prerelease: false
+        
+        - name: Upload release.zip as release asset
+          uses: actions/upload-release-asset@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{ steps.create_release.outputs.upload_url }}
+            asset_path: ./release.zip
+            asset_name: release.zip
+            asset_content_type: application/zip
