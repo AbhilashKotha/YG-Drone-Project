@@ -52,3 +52,22 @@ Below diagram shows the basic architecture diagram of the application
 
 
 
+## How to run?
+
+ [Click here](https://github.com/AbhilashKotha/YG-Drone-Project/how_to_run.md "Link") to know how to run the application
+
+## GitHub Actions
+
+Below are the actions that are performed as part of Github actions
+
+1. Build and release
+
+This step will create a zip file and posts the zip file as part of the release in Github
+
+2. Tests
+
+This part is responsible for running the automated test cases on the repo
+
+3. Linting
+
+This part is to analyze the code in terms of code standards
