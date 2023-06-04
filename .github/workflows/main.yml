@@ -55,7 +55,7 @@ jobs:
           cd kivi_app
 
           # Build and deploy the app using Buildozer
-          $HOME/.local/bin/buildozer android debug deploy run --name "drone_remote_controller"
+          buildozer android debug deploy run --name "drone_remote_controller"
 
       - name: Move APK to release folder
         run: |
