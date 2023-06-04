@@ -21,49 +21,15 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: '8'
-          distribution: 'adopt'
-
-      - name: Install Android SDK
-        run: |
-          sudo apt-get install -y unzip
-          wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-          unzip sdk-tools-linux-4333796.zip -d $HOME/android-sdk
-          export ANDROID_SDK_ROOT=$HOME/android-sdk
-          export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
-          echo "export ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
-          echo "export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin" >> $GITHUB_ENV
-          sdkmanager "build-tools;34.0.0-rc4" "platforms;android-30" "ndk;21.4.7075529" "cmake;3.10.2.4988404"
-          sdkmanager --licenses
-
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          cd kivi_app
-          pip install -r requirements.txt
-
-
-      - name: Build and deploy Android app
-        run: |
-          cd kivi_app
-
-          # Build and deploy the app using Buildozer
-          yes | buildozer android debug deploy run --name "drone_remote_controller"
-
-      - name: Move APK to release folder
-        run: |
-          mkdir -p release
-          mv kivi_app/bin/drone_remote_controller-debug.apk release/drone_remote_controller-debug.apk
-
-      - name: Upload APK as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: android-release
-          path: release/drone_remote_controller-debug.apk
+        - name: Checkout code
+          uses: actions/checkout@v3
+  
+        - name: Create zip archive
+          run: |
+            zip -r release.zip .
+        
+        - name: Upload release.zip as artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: release-artifact
+            path: release.zip
