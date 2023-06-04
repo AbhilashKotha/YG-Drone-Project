@@ -37,7 +37,30 @@ jobs:
           run: |
             cd backend
             PYTHONPATH=$(pwd) pytest tests.py --timeout=3
-            
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+
+        - name: Set up Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: '3.x'  # Specify the Python version you need
+
+        - name: Install dependencies
+          run: |
+            pip install pylint
+
+        - name: Run code linting
+          run: |
+            cd kivi_app
+            pylint main.py
+            cd ../backend
+            pylint drone.py
+            pylint server.py
+                      
   android-release:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
