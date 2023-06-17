@@ -74,6 +74,12 @@ def send_rc_command(control_surface_channel, percent):
     except Exception as e:
         print(f"Error setting control surface channel: {str(e)}")
         return jsonify({"status": "error", "message": f"Error setting control surface channel: {str(e)}"}), 500
+    
+def get_current_value(self, control_surface_channel):
+        """
+        This function is used to retrieve the current value of a specific control surface channel.
+        """
+        return self.current_values[control_surface_channel]
 
 if __name__ == '__main__':
     DroneController = DroneController()
