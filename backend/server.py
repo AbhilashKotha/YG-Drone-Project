@@ -1,3 +1,5 @@
+# Copyright 2023 YG-Drone-Project
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from drone import DroneController
