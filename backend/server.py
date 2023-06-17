@@ -43,6 +43,18 @@ def arm_drone():
         print(f"Error arming drone: {str(e)}")
         return jsonify({"status": "error", "message": f"Error arming drone: {str(e)}"}), 500
 
+@server.route('/disarm_drone', methods=['POST'])
+def disarm_drone():
+    try:
+        print("Disarming drone...")
+        result = DroneController.disarm_vehicle()
+        print("Drone Disarmed successfully.")
+        return jsonify({"status": "success", "message": "Drone Disarmed successfully"}), 200
+    except Exception as e:
+        print(f"Error Disarming drone: {str(e)}")
+        return jsonify({"status": "error", "message": f"Error Disarming drone: {str(e)}"}), 500
+
+
 @server.route('/set_aileron', methods=['POST'])
 def set_aileron():
 
