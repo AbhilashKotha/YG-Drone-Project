@@ -14,6 +14,7 @@ class DroneController:
     def __del__(self):
         if hasattr(self, 'vehicle'):
             self.vehicle.close()
+    
     #arm vehicle
     def arm_vehicle(self):
         """
@@ -49,3 +50,9 @@ class DroneController:
             self.current_values[control_surface_channel] = pwm
             self.vehicle.channels.overrides = self.current_values
             return True
+        
+    def get_current_value(self, control_surface_channel):
+        """
+        This function is used to retrieve the current value of a specific control surface channel.
+        """
+        return self.current_values[control_surface_channel]
