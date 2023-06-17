@@ -13,6 +13,10 @@ def is_drone_armed():
 
     return DroneController.vehicle.armed
 
+@server.route('/get_throttle', methods=['GET'])
+def get_throttle():
+    return jsonify({"status": "success", "throttle": DroneController.get_current_value(3)}), 200
+
 @server.route('/arm_drone', methods=['POST'])
 def arm_drone():
     try:
@@ -74,12 +78,6 @@ def send_rc_command(control_surface_channel, percent):
     except Exception as e:
         print(f"Error setting control surface channel: {str(e)}")
         return jsonify({"status": "error", "message": f"Error setting control surface channel: {str(e)}"}), 500
-    
-def get_current_value(self, control_surface_channel):
-        """
-        This function is used to retrieve the current value of a specific control surface channel.
-        """
-        return self.current_values[control_surface_channel]
 
 if __name__ == '__main__':
     DroneController = DroneController()
