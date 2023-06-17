@@ -80,3 +80,47 @@ def test_process_control_request(client, drone_controller):
             data = json.loads(result.data)
             assert "status" in data
             assert data["status"] == "error"
+
+def test_get_throttle(client, drone_controller):
+    drone_controller.get_current_value.return_value = 1500
+    with patch("server.DroneController", drone_controller):
+        response = client.get('/get_throttle')
+        assert response.status_code == 200
+        data = json.loads(response.data)
+        assert "status" in data
+        assert data["status"] == "success"
+        assert "throttle" in data
+        assert data["throttle"] == 1500
+
+def test_get_yaw(client, drone_controller):
+    drone_controller.get_current_value.return_value = 1500
+    with patch("server.DroneController", drone_controller):
+        response = client.get('/get_yaw')
+        assert response.status_code == 200
+        data = json.loads(response.data)
+        assert "status" in data
+        assert data["status"] == "success"
+        assert "yaw" in data
+        assert data["yaw"] == 1500
+
+def test_get_pitch(client, drone_controller):
+    drone_controller.get_current_value.return_value = 1500
+    with patch("server.DroneController", drone_controller):
+        response = client.get('/get_pitch')
+        assert response.status_code == 200
+        data = json.loads(response.data)
+        assert "status" in data
+        assert data["status"] == "success"
+        assert "pitch" in data
+        assert data["pitch"] == 1500
+
+def test_get_roll(client, drone_controller):
+    drone_controller.get_current_value.return_value = 1500
+    with patch("server.DroneController", drone_controller):
+        response = client.get('/get_roll')
+        assert response.status_code == 200
+        data = json.loads(response.data)
+        assert "status" in data
+        assert data["status"] == "success"
+        assert "roll" in data
+        assert data["roll"] == 1500
