@@ -28,6 +28,19 @@ class DroneController:
             time.sleep(1)
         if self.vehicle.armed:
             return True
+        
+    def disarm_vehicle(self):
+        """
+        This method is used to disarm the vehicle.
+        It uses a while loop to ensure that the vehicle is disarmed.
+        """
+
+        self.vehicle.armed = False
+        while self.vehicle.armed==True:
+            print('Waiting for the drone to disarm.')
+            time.sleep(1)
+        if not self.vehicle.armed:
+            return True
 
     def send_rc_command(self, control_surface_channel, percent):
         """
