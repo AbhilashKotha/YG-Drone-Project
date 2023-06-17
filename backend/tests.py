@@ -124,3 +124,14 @@ def test_get_roll(client, drone_controller):
         assert data["status"] == "success"
         assert "roll" in data
         assert data["roll"] == 1500
+
+def test_disarm_drone(client, drone_controller):
+    drone_controller.disarm_vehicle.return_value = True
+    with patch("server.DroneController", drone_controller):
+        response = client.post('/disarm_drone')
+        assert response.status_code == 200
+        data = json.loads(response.data)
+        assert "status" in data
+        assert data["status"] == "success"
+        assert "message" in data
+        assert data["message"] == "Drone Disarmed successfully"
