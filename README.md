@@ -71,3 +71,9 @@ This part is responsible for running the automated test cases on the repo
 3. Linting
 
 This part is to analyze the code in terms of code standards
+
+
+## License
+
+This project is licensed under the terms of the [MIT License](LICENSE.txt).
+

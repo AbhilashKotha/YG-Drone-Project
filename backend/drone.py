@@ -1,3 +1,5 @@
+# Copyright 2023 YG-Drone-Project
+
 from dronekit import connect, VehicleMode
 import time
 

@@ -1,3 +1,5 @@
+# Copyright 2023 YG-Drone-Project
+
 # Import modules 
 from kivy.app import App
 from kivy.uix.button import Button
