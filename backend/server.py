@@ -17,6 +17,19 @@ def is_drone_armed():
 def get_throttle():
     return jsonify({"status": "success", "throttle": DroneController.get_current_value(3)}), 200
 
+@server.route('/get_yaw', methods=['GET'])
+def get_yaw():
+    return jsonify({"status": "success", "yaw": DroneController.get_current_value(4)}), 200
+
+@server.route('/get_pitch', methods=['GET'])
+def get_pitch():
+    return jsonify({"status": "success", "pitch": DroneController.get_current_value(2)}), 200
+
+@server.route('/get_roll', methods=['GET'])
+def get_roll():
+    return jsonify({"status": "success", "roll": DroneController.get_current_value(1)}), 200
+
+
 @server.route('/arm_drone', methods=['POST'])
 def arm_drone():
     try:
