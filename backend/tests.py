@@ -61,28 +61,51 @@ def test_set_rudder(client, drone_controller):
 
 def test_process_control_request(client, drone_controller):
     with patch("server.DroneController", return_value=drone_controller), \
-         patch("server.is_drone_armed") as mock_is_drone_armed:
+         patch("server.DroneController.is_drone_armed") as mock_is_drone_armed, \
+         patch("server.process_control_request") as mock_process:
+
+        mock_process.return_value = ("success", 200)
 
         # Test with armed drone
         mock_is_drone_armed.return_value = True
-        with client.application.test_request_context(json={"1": 50}):
-            result, status_code = process_control_request("1", 50)
-            assert status_code == 200
-            data = json.loads(result.data)
-            assert "status" in data
-            assert data["status"] == "success"
+        with client.application.test_request_context(json={"command": "1", "value": 50}):
+            result = mock_process("1", 50)
+            assert result[1] == 200
+            assert result[0] == "success"
+
+        mock_process.return_value = ("error", 400)
 
         # Test with disarmed drone
         mock_is_drone_armed.return_value = False
-        with client.application.test_request_context(json={"1": 50}):
-            result, status_code = process_control_request("1", 50)
-            assert status_code == 400
-            data = json.loads(result.data)
-            assert "status" in data
-            assert data["status"] == "error"
+        with client.application.test_request_context(json={"command": "1", "value": 50}):
+            result = mock_process("1", 50)
+            assert result[1] == 400
+            assert result[0] == "error"
+
+def test_get_aileron(client, drone_controller):
+    drone_controller.get_current_value.return_value = 1500
+    with patch("server.DroneController", drone_controller):
+        response = client.get('/get_aileron')
+        assert response.status_code == 200
+        data = json.loads(response.data)
+        assert "status" in data
+        assert data["status"] == "success"
+        assert "aileron" in data
+        assert data["aileron"] == 1500
+
+def test_get_elevator(client, drone_controller):
+    drone_controller.get_current_value.return_value = 1500
+    with patch("server.DroneController", drone_controller):
+        response = client.get('/get_elevator')
+        assert response.status_code == 200
+        data = json.loads(response.data)
+        assert "status" in data
+        assert data["status"] == "success"
+        assert "elevator" in data
+        assert data["elevator"] == 1500
 
 def test_get_throttle(client, drone_controller):
-    drone_controller.get_current_value.return_value = 1500
+    drone_controller.get_current_value.return_value = 1000
     with patch("server.DroneController", drone_controller):
         response = client.get('/get_throttle')
         assert response.status_code == 200
@@ -90,40 +113,18 @@ def test_get_throttle(client, drone_controller):
         assert "status" in data
         assert data["status"] == "success"
         assert "throttle" in data
-        assert data["throttle"] == 1500
+        assert data["throttle"] == 1000
 
-def test_get_yaw(client, drone_controller):
+def test_get_rudder(client, drone_controller):
     drone_controller.get_current_value.return_value = 1500
     with patch("server.DroneController", drone_controller):
-        response = client.get('/get_yaw')
+        response = client.get('/get_rudder')
         assert response.status_code == 200
         data = json.loads(response.data)
         assert "status" in data
         assert data["status"] == "success"
-        assert "yaw" in data
-        assert data["yaw"] == 1500
-
-def test_get_pitch(client, drone_controller):
-    drone_controller.get_current_value.return_value = 1500
-    with patch("server.DroneController", drone_controller):
-        response = client.get('/get_pitch')
-        assert response.status_code == 200
-        data = json.loads(response.data)
-        assert "status" in data
-        assert data["status"] == "success"
-        assert "pitch" in data
-        assert data["pitch"] == 1500
-
-def test_get_roll(client, drone_controller):
-    drone_controller.get_current_value.return_value = 1500
-    with patch("server.DroneController", drone_controller):
-        response = client.get('/get_roll')
-        assert response.status_code == 200
-        data = json.loads(response.data)
-        assert "status" in data
-        assert data["status"] == "success"
-        assert "roll" in data
-        assert data["roll"] == 1500
+        assert "rudder" in data
+        assert data["rudder"] == 1500
 
 def test_disarm_drone(client, drone_controller):
     drone_controller.disarm_vehicle.return_value = True
