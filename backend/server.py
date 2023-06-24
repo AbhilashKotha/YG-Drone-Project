@@ -182,4 +182,4 @@ def send_rc_command(control_surface_channel, percent):
 
 if __name__ == '__main__':
     DroneController = DroneController()
-    server.run(port=os.getenv('PORT', 8000), host='0.0.0.0', debug=os.getenv('DEBUG', True))
+    server.run(port=os.getenv('PORT', 8000), host='0.0.0.0', debug=os.getenv('DEBUG', False))

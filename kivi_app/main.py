@@ -35,6 +35,12 @@ class DroneApp(App):
     rudder_percentage = 50 
     aileron_percentage = 50
 
+    # Initialize labels for control status
+    throttle_status_label = None
+    rudder_status_label = None
+    elevator_status_label = None
+    aileron_status_label = None
+
     def build(self):
         """
         This method lays out the app interface and buttons
@@ -70,6 +76,10 @@ class DroneApp(App):
 
         self.throttle_step_size_label = Label(text=f'Throttle step size: {self.throttle_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.throttle_step_size_label)
+
+        # Throttle status
+        self.throttle_status_label = Label(text=f'Throttle Status: {self.throttle_percentage}%', size_hint=(1, 0.5))
+        step_size_controls.add_widget(self.throttle_status_label)
         
         # Rudder controls
         inc_rudder_step_button = Button(text='Increase Rudder step size', size_hint=(1, 0.5))
@@ -83,6 +93,10 @@ class DroneApp(App):
         self.rudder_step_size_label = Label(text=f'Rudder step size: {self.rudder_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.rudder_step_size_label)
 
+        # Rudder status
+        self.rudder_status_label = Label(text=f'Rudder Status: {self.rudder_percentage}%', size_hint=(1, 0.5))
+        step_size_controls.add_widget(self.rudder_status_label)
+
         # Elevator controls
         inc_elevator_step_button = Button(text='Increase Elevator step size', size_hint=(1, 0.5))
         inc_elevator_step_button.bind(on_press=self.increase_elevator_step_size)
@@ -94,6 +108,10 @@ class DroneApp(App):
 
         self.elevator_step_size_label = Label(text=f'Elevator step size: {self.elevator_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.elevator_step_size_label)
+
+        # Elevator status
+        self.elevator_status_label = Label(text=f'Elevator Status: {self.elevator_percentage}%', size_hint=(1, 0.5))
+        step_size_controls.add_widget(self.elevator_status_label)
 
         # Aileron controls
         inc_aileron_step_button = Button(text='Increase Aileron step size', size_hint=(1, 0.5))
@@ -107,6 +125,11 @@ class DroneApp(App):
         self.aileron_step_size_label = Label(text=f'Aileron step size: {self.aileron_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.aileron_step_size_label)
 
+        # Aileron status
+        self.aileron_status_label = Label(text=f'Aileron Status: {self.aileron_percentage}%', size_hint=(1, 0.5))
+        step_size_controls.add_widget(self.aileron_status_label)
+
+        # Add step size controls to right anchor box
         right_anchor.add_widget(step_size_controls)
         top_layout.add_widget(right_anchor)
 
