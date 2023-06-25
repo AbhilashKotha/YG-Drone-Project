@@ -1,6 +1,6 @@
 # Copyright 2023 YG-Drone-Project
 
-# Import modules 
+# Import modules
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
@@ -19,7 +19,6 @@ class DroneApp(App):
     The main app class with all the buttons and layout
     defined.
     """
-    
     # Initialize values for the controls and the label
     response_label = None
     throttle_step_size_label = None
@@ -30,9 +29,9 @@ class DroneApp(App):
     rudder_step_size = 1
     elevator_step_size = 1
     aileron_step_size = 1
-    throttle_percentage = 0 
+    throttle_percentage = 0
     elevator_percentage = 50
-    rudder_percentage = 50 
+    rudder_percentage = 50
     aileron_percentage = 50
 
     def build(self):
@@ -68,9 +67,10 @@ class DroneApp(App):
         dec_throttle_step_button.bind(on_press=self.decrease_throttle_step_size)
         step_size_controls.add_widget(dec_throttle_step_button)
 
-        self.throttle_step_size_label = Label(text=f'Throttle step size: {self.throttle_step_size}', size_hint=(1, 0.5))
+        self.throttle_step_size_label = Label(
+            text=f'Throttle step size: {self.throttle_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.throttle_step_size_label)
-        
+
         # Rudder controls
         inc_rudder_step_button = Button(text='Increase Rudder step size', size_hint=(1, 0.5))
         inc_rudder_step_button.bind(on_press=self.increase_rudder_step_size)
@@ -80,7 +80,8 @@ class DroneApp(App):
         dec_rudder_step_button.bind(on_press=self.decrease_rudder_step_size)
         step_size_controls.add_widget(dec_rudder_step_button)
 
-        self.rudder_step_size_label = Label(text=f'Rudder step size: {self.rudder_step_size}', size_hint=(1, 0.5))
+        self.rudder_step_size_label = Label(
+            text=f'Rudder step size: {self.rudder_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.rudder_step_size_label)
 
         # Elevator controls
@@ -92,7 +93,8 @@ class DroneApp(App):
         dec_elevator_step_button.bind(on_press=self.decrease_elevator_step_size)
         step_size_controls.add_widget(dec_elevator_step_button)
 
-        self.elevator_step_size_label = Label(text=f'Elevator step size: {self.elevator_step_size}', size_hint=(1, 0.5))
+        self.elevator_step_size_label = Label(
+            text=f'Elevator step size: {self.elevator_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.elevator_step_size_label)
 
         # Aileron controls
@@ -151,7 +153,7 @@ class DroneApp(App):
 
         return layout
     
-    def update_rect(self, instance, value):
+    def update_rect(self, instance):
         """
         This method contributes to the UI layout
         """
@@ -182,12 +184,12 @@ class DroneApp(App):
                 message = response_json.get("message", "Error: Invalid server response")
                 self.response_label.text = message
                 print(f'Failed request to {route}. Response code:', response.status_code)
-        except requests.exceptions.RequestException as e:
-            print('Error connecting to server:', e)
+        except requests.exceptions.RequestException as exception:
+            print('Error connecting to server:', exception)
         except ValueError:
             print('Error decoding server response')
 
-    def arm_drone(self, instance):
+    def arm_drone(self):
         """
         Arm the drone request
         """
@@ -206,7 +208,7 @@ class DroneApp(App):
     def update_aileron_step_size_label(self):
         self.aileron_step_size_label.text = f'Aileron Step Size: {self.aileron_step_size}%'
 
-    def increase_throttle_step_size(self, instance):
+    def increase_throttle_step_size(self):
         """
         Increase step size of throttle
         """
@@ -215,7 +217,7 @@ class DroneApp(App):
             self.throttle_step_size += 1
             self.update_throttle_step_size_label()
 
-    def decrease_throttle_step_size(self, instance):
+    def decrease_throttle_step_size(self):
         """
         Decrease step size of throttle
         """
@@ -224,7 +226,7 @@ class DroneApp(App):
             self.throttle_step_size -= 1
             self.update_throttle_step_size_label()
 
-    def increase_rudder_step_size(self, instance):
+    def increase_rudder_step_size(self):
         """
         Increase step size of rudder
         """
@@ -233,7 +235,7 @@ class DroneApp(App):
             self.rudder_step_size += 1
             self.update_rudder_step_size_label()
 
-    def decrease_rudder_step_size(self, instance):
+    def decrease_rudder_step_size(self):
         """
         Decrease step size of rudder
         """
@@ -242,7 +244,7 @@ class DroneApp(App):
             self.rudder_step_size -= 1
             self.update_rudder_step_size_label()
 
-    def increase_elevator_step_size(self, instance):
+    def increase_elevator_step_size(self):
         """
         Increase step size of elevator
         """
@@ -251,7 +253,7 @@ class DroneApp(App):
             self.elevator_step_size += 1
             self.update_elevator_step_size_label()
 
-    def decrease_elevator_step_size(self, instance):
+    def decrease_elevator_step_size(self):
         """
         Decrease step size of elevator
         """
@@ -260,7 +262,7 @@ class DroneApp(App):
             self.elevator_step_size -= 1
             self.update_elevator_step_size_label()
 
-    def increase_aileron_step_size(self, instance):
+    def increase_aileron_step_size(self):
         """
         Increase step size of aileron
         """
@@ -269,7 +271,7 @@ class DroneApp(App):
             self.aileron_step_size += 1
             self.update_aileron_step_size_label()
 
-    def decrease_aileron_step_size(self, instance):
+    def decrease_aileron_step_size(self):
         """
         Decrease step size of aileron
         """
@@ -278,7 +280,7 @@ class DroneApp(App):
             self.aileron_step_size -= 1
             self.update_aileron_step_size_label()
 
-    def increase_throttle(self, instance):
+    def increase_throttle(self):
         """
         This method increases the throttle
         """
@@ -287,7 +289,7 @@ class DroneApp(App):
         self.throttle_percentage = min(self.throttle_percentage, 100)
         self.send_request('set_throttle', self.throttle_percentage)
 
-    def decrease_throttle(self, instance):
+    def decrease_throttle(self):
         """
         This method decreases the throttle
         """
@@ -296,7 +298,7 @@ class DroneApp(App):
         self.throttle_percentage = max(self.throttle_percentage, 0)
         self.send_request('set_throttle', self.throttle_percentage)
 
-    def left_rudder(self, instance):
+    def left_rudder(self):
         """
         This method decreases the rudder
         """
@@ -305,7 +307,7 @@ class DroneApp(App):
         self.rudder_percentage = max(self.rudder_percentage, 0)
         self.send_request('set_rudder', self.rudder_percentage)
 
-    def right_rudder(self, instance):
+    def right_rudder(self):
         """
         This method increases the rudder
         """
@@ -314,7 +316,7 @@ class DroneApp(App):
         self.rudder_percentage = min(self.rudder_percentage, 100)
         self.send_request('set_rudder', self.rudder_percentage)
 
-    def increase_elevator(self, instance):
+    def increase_elevator(self):
         """
         This method increases the elevator
         """
@@ -323,7 +325,7 @@ class DroneApp(App):
         self.elevator_percentage = min(self.elevator_percentage, 100)
         self.send_request('set_elevator', self.elevator_percentage)
 
-    def decrease_elevator(self, instance):
+    def decrease_elevator(self):
         """
         This method decreases the elevator
         """
@@ -332,7 +334,7 @@ class DroneApp(App):
         self.elevator_percentage = max(self.elevator_percentage, 0)
         self.send_request('set_elevator', self.elevator_percentage)
 
-    def left_aileron(self, instance):
+    def left_aileron(self):
         """
         This method decreases the aileron
         """
@@ -341,7 +343,7 @@ class DroneApp(App):
         self.aileron_percentage = max(self.aileron_percentage, 0)
         self.send_request('set_aileron', self.aileron_percentage)
 
-    def right_aileron(self, instance):
+    def right_aileron(self):
         """
         This method increases the aileron
         """
@@ -353,4 +355,3 @@ class DroneApp(App):
 # The Driver code
 if __name__ == '__main__':
     DroneApp().run()
-
