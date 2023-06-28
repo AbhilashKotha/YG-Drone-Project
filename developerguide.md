@@ -55,3 +55,9 @@ Welcome to the YG-Drone-Project developer guide. Here you will find our conventi
    - Use secure coding practices like validating input and avoiding vulnerabilities like SQL injection or Cross-Site Scripting (XSS).
    - Keep dependencies updated to take advantage of the latest security patches.
    - Consider using a security-focused linter to spot potential issues automatically.
+   
+## Handling errors consistently:
+
+Encourage programmers to use uniform error handling techniques across the whole codebase.
+To ensure uniformity and maintainability, define error handling conventions, such as utilizing try-catch blocks or error objects.
+Stress the value of including detailed error messages that aid in locating the source of the problem.
