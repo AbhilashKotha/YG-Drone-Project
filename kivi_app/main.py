@@ -1,5 +1,7 @@
 # Copyright 2023 YG-Drone-Project
-
+"""
+Module description: This module contains Python code for the UI.
+"""
 # Import modules
 from kivy.app import App
 from kivy.uix.button import Button
@@ -106,7 +108,8 @@ class DroneApp(App):
         dec_aileron_step_button.bind(on_press=self.decrease_aileron_step_size)
         step_size_controls.add_widget(dec_aileron_step_button)
 
-        self.aileron_step_size_label = Label(text=f'Aileron step size: {self.aileron_step_size}', size_hint=(1, 0.5))
+        self.aileron_step_size_label = Label(
+            text=f'Aileron step size: {self.aileron_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.aileron_step_size_label)
 
         right_anchor.add_widget(step_size_controls)
@@ -150,16 +153,15 @@ class DroneApp(App):
         main_layout.add_widget(left_controls)
         main_layout.add_widget(right_controls)
         layout.add_widget(main_layout)
-
         return layout
-    
+
     def update_rect(self, instance):
         """
         This method contributes to the UI layout
         """
         self.rect.size = instance.size
         self.rect.pos = instance.pos
-    
+
     def send_request(self, route, value=None):
         """
         This method handles all HTTP request to the web server using POST method.
@@ -197,15 +199,27 @@ class DroneApp(App):
         self.send_request('arm_drone')
 
     def update_throttle_step_size_label(self):
+        """
+        Label for throttle step size
+        """
         self.throttle_step_size_label.text = f'Throttle Step Size: {self.throttle_step_size}%'
 
     def update_rudder_step_size_label(self):
+        """
+        Label for rudder step size
+        """
         self.rudder_step_size_label.text = f'Rudder Step Size: {self.rudder_step_size}%'
 
     def update_elevator_step_size_label(self):
+        """
+        Label for elevator step size
+        """
         self.elevator_step_size_label.text = f'Elevator Step Size: {self.elevator_step_size}%'
 
     def update_aileron_step_size_label(self):
+        """
+        Label for aileron step size
+        """
         self.aileron_step_size_label.text = f'Aileron Step Size: {self.aileron_step_size}%'
 
     def increase_throttle_step_size(self):
