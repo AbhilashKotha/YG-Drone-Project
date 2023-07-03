@@ -12,6 +12,7 @@ class DroneController:
         """
         self.vehicle = connect(self.CONNECTION_STRING, wait_ready=False)
         self.current_values = {1: 1500, 2: 1500, 3: 1000, 4: 1500}  # Initialize current values for each channel
+        self.flight_path = []
 
     def __del__(self):
         if hasattr(self, 'vehicle'):
@@ -42,6 +43,8 @@ class DroneController:
             print('Waiting for the drone to disarm.')
             time.sleep(1)
         if not self.vehicle.armed:
+            # Save the flight path to a file
+            self.save_flight_path()
             return True
 
     def send_rc_command(self, control_surface_channel, percent):
@@ -57,6 +60,7 @@ class DroneController:
         self.vehicle.mode = VehicleMode("MANUAL")
         self.vehicle.wait_for_mode("MANUAL")
         if self.vehicle.armed: # Check that vehicle is armed before attempting to change the channel
+            self.vehicle.add_attribute_listener('global_frame', self.log_coordinates)
             if control_surface_channel == 3: # Check if the channel is throttle 
                 pwm=int(1000 + (1000 * percent / 100))
             else:
@@ -65,9 +69,18 @@ class DroneController:
             self.current_values[control_surface_channel] = pwm
             self.vehicle.channels.overrides = self.current_values
             return True
-        
+    
     def get_current_value(self, control_surface_channel):
         """
         This function is used to retrieve the current value of a specific control surface channel.
         """
         return self.current_values[control_surface_channel]
+
+    def save_flight_path(self):
+        """
+        Save the flight path to a file
+        """
+        with open('flight_path.txt', 'w') as f:
+            for coordinate in self.flight_path:
+                f.write("Latitude: {}, Longitude: {}, Altitude: {}\n".format(
+                    coordinate.lat, coordinate.lon, coordinate.alt))
