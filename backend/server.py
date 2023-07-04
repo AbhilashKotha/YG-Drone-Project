@@ -75,6 +75,18 @@ def set_rudder():
 
     return process_control_request('set_rudder', 4)
 
+@server.route('/get_roll_status', methods=['GET'])
+def get_roll_status():
+    return jsonify({"status": "success", "roll_status": DroneController.get_roll()}), 200
+
+@server.route('/get_pitch_status', methods=['GET'])
+def get_pitch_status():
+    return jsonify({"status": "success", "pitch_status": DroneController.get_pitch()}), 200
+
+@server.route('/get_yaw_status', methods=['GET'])
+def get_yaw_status():
+    return jsonify({"status": "success", "yaw_status": DroneController.get_yaw()}), 200
+
 def process_control_request(control_surface, channel):
     """
     This function is meant to enforce security checks on surface control
@@ -108,4 +120,4 @@ def send_rc_command(control_surface_channel, percent):
 
 if __name__ == '__main__':
     DroneController = DroneController()
-    server.run(port=8000, host='0.0.0.0', debug=True)
+    server.run(port=8000, host='0.0.0.0', debug=False)

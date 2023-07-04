@@ -71,3 +71,21 @@ class DroneController:
         This function is used to retrieve the current value of a specific control surface channel.
         """
         return self.current_values[control_surface_channel]
+    
+    def get_roll(self):
+        """
+        This method is used to get the roll of the vehicle.
+        """
+        return self.vehicle.attitude.roll
+
+    def get_pitch(self):
+        """
+        This method is used to get the pitch of the vehicle.
+        """
+        return self.vehicle.attitude.pitch
+
+    def get_yaw(self):
+        """
+        This method is used to get the yaw of the vehicle.
+        """
+        return self.vehicle.attitude.yaw
