@@ -1,5 +1,7 @@
+# drone.py
 # Copyright 2023 YG-Drone-Project
 
+# Necessary imports
 from dronekit import connect, VehicleMode
 import time
 
@@ -8,20 +10,23 @@ class DroneController:
 
     def __init__(self):
         """
-        Constructor to create the vehicle object
+        Constructor to create the vehicle object by connecting to it.
+        Also, initializes current PWM values for each control channel.
         """
         self.vehicle = connect(self.CONNECTION_STRING, wait_ready=False)
         self.current_values = {1: 1500, 2: 1500, 3: 1000, 4: 1500}  # Initialize current values for each channel
 
     def __del__(self):
+        """
+        Destructor to ensure the vehicle connection is closed when the DroneController object is deleted.
+        """
         if hasattr(self, 'vehicle'):
             self.vehicle.close()
     
-    #arm vehicle
     def arm_vehicle(self):
         """
-        This method is used to arm the vehicle.
-        It uses a while loop to ensure that the vehicle is armed.
+        Arms the vehicle. This process might take a moment, so a loop
+        checks the vehicle's status until it's confirmed to be armed.
         """
 
         self.vehicle.armed = True
@@ -33,8 +38,8 @@ class DroneController:
         
     def disarm_vehicle(self):
         """
-        This method is used to disarm the vehicle.
-        It uses a while loop to ensure that the vehicle is disarmed.
+        Disarms the vehicle. Again, the process is checked in a loop
+        until the vehicle's status confirms it has disarmed.
         """
 
         self.vehicle.armed = False
@@ -46,11 +51,8 @@ class DroneController:
 
     def send_rc_command(self, control_surface_channel, percent):
         """
-        This method is used to modify the control surfaces of the vehicle.
-        The control surfaces are the throttle, elevator, rudder, and aileron.
-        It changes these controls surfaces by passing a PWM value to the
-        specific channel responsible fo r the control surface intended to be
-        changed.
+        Sends command to modify the control surfaces (throttle, elevator, rudder, aileron)
+        via the appropriate channel using a PWM value calculated from a percent input.
         """
 
         # elevator = '2', throttle = '3', rudder = '4', aileron = '1'
@@ -68,24 +70,24 @@ class DroneController:
         
     def get_current_value(self, control_surface_channel):
         """
-        This function is used to retrieve the current value of a specific control surface channel.
+        Retrieves the current PWM value of a specified control surface channel.
         """
         return self.current_values[control_surface_channel]
     
     def get_roll(self):
         """
-        This method is used to get the roll of the vehicle.
+        Retrieves the roll attitude of the vehicle.
         """
         return self.vehicle.attitude.roll
 
     def get_pitch(self):
         """
-        This method is used to get the pitch of the vehicle.
+        Retrieves the pitch attitude of the vehicle.
         """
         return self.vehicle.attitude.pitch
 
     def get_yaw(self):
         """
-        This method is used to get the yaw of the vehicle.
+        Retrieves the yaw attitude of the vehicle.
         """
         return self.vehicle.attitude.yaw
