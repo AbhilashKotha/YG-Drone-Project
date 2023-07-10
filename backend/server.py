@@ -15,6 +15,10 @@ def is_drone_armed():
     """
     return DroneController.vehicle.armed
 
+@server.route('/get_altitude', methods=['GET'])
+def get_altitude():
+    return jsonify({"status": "success", "altitude": DroneController.get_altitude()}), 200
+
 @server.route('/get_yaw', methods=['GET'])
 def get_yaw():
     return jsonify({"status": "success", "yaw": DroneController.get_current_value(3)}), 200

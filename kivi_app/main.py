@@ -160,15 +160,21 @@ class DroneApp(App):
         main_layout.add_widget(right_controls)
         layout.add_widget(main_layout)
 
-        self.altitude_label = Label(text=f'Altitude: {self.altitude}', size_hint=(.2, .1))
-        self.pitch_label = Label(text=f'Pitch: {self.pitch}', size_hint=(.2, .1))
-        self.roll_label = Label(text=f'Roll: {self.roll}', size_hint=(.2, .1))
-        self.yaw_label = Label(text=f'Yaw: {self.yaw}', size_hint=(.2, .1))
+        info_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1))
 
-        main_layout.add_widget(self.altitude_label)
-        main_layout.add_widget(self.pitch_label)
-        main_layout.add_widget(self.roll_label)
-        main_layout.add_widget(self.yaw_label)
+        self.altitude_label = Label(text=f'Altitude: {self.altitude}')
+        info_layout.add_widget(self.altitude_label)
+
+        self.pitch_label = Label(text=f'Pitch: {self.pitch}')
+        info_layout.add_widget(self.pitch_label)
+
+        self.roll_label = Label(text=f'Roll: {self.roll}')
+        info_layout.add_widget(self.roll_label)
+
+        self.yaw_label = Label(text=f'Yaw: {self.yaw}')
+        info_layout.add_widget(self.yaw_label)
+
+        main_layout.add_widget(info_layout)
 
         return layout
     

@@ -74,6 +74,12 @@ class DroneController:
         """
         return self.current_values[control_surface_channel]
     
+    def get_altitude(self):
+        """
+        Retrieves the altitude of the vehicle.
+        """
+        return self.vehicle.location.global_relative_frame.alt
+    
     def get_roll(self):
         """
         Retrieves the roll attitude of the vehicle.
