@@ -23,7 +23,6 @@ class DroneController:
         This method is used to arm the vehicle.
         It uses a while loop to ensure that the vehicle is armed.
         """
-
         self.vehicle.armed = True
         while self.vehicle.armed==False:
             print('Waiting for the drone to arm.')
@@ -36,6 +35,17 @@ class DroneController:
         This method is used to disarm the vehicle.
         It uses a while loop to ensure that the vehicle is disarmed.
         """
+        if self.vehicle.groundspeed > 0.1:
+            print("The vehicle is still moving. Wait for it to come to a complete stop before disarming.")
+            return
+
+        if self.vehicle.airspeed > 0.1:
+            print("The vehicle is still experiencing airspeed. Wait for it to reduce to zero before disarming.")
+            return
+
+        if self.vehicle.location.global_relative_frame.alt > 0.2:
+            print("The vehicle is not close enough to the ground. Descend to a lower altitude before disarming.")
+            return
 
         self.vehicle.armed = False
         while self.vehicle.armed==True:
