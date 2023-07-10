@@ -1,5 +1,7 @@
 # Copyright 2023 YG-Drone-Project
-
+"""
+Module description: This module contains Python code for the UI.
+"""
 # Import modules
 from kivy.app import App
 from kivy.uix.button import Button
@@ -10,15 +12,13 @@ from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle
 from kivy.config import Config
 import requests
+from kivy.uix.screenmanager import Screen, ScreenManager
+from instructor_app import InstructorScreen
 
 Config.set('graphics', 'width', '360')
 Config.set('graphics', 'height', '640')
 
-class DroneApp(App):
-    """
-    The main app class with all the buttons and layout
-    defined.
-    """
+class MainScreen(Screen):
     # Initialize values for the controls and the label
     response_label = None
     throttle_step_size_label = None
@@ -33,13 +33,8 @@ class DroneApp(App):
     elevator_percentage = 50
     rudder_percentage = 50
     aileron_percentage = 50
-
-    def build(self):
-        """
-        This method lays out the app interface and buttons
-        position
-        """
-
+    def __init__(self, **kwargs):
+        super(MainScreen, self).__init__(**kwargs)
         Config.set('graphics', 'orientation', 'landscape')
 
         layout = BoxLayout(orientation='vertical')
@@ -106,7 +101,8 @@ class DroneApp(App):
         dec_aileron_step_button.bind(on_press=self.decrease_aileron_step_size)
         step_size_controls.add_widget(dec_aileron_step_button)
 
-        self.aileron_step_size_label = Label(text=f'Aileron step size: {self.aileron_step_size}', size_hint=(1, 0.5))
+        self.aileron_step_size_label = Label(
+            text=f'Aileron step size: {self.aileron_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.aileron_step_size_label)
 
         right_anchor.add_widget(step_size_controls)
@@ -151,15 +147,20 @@ class DroneApp(App):
         main_layout.add_widget(right_controls)
         layout.add_widget(main_layout)
 
-        return layout
-    
-    def update_rect(self, instance):
+        instructor_button = Button(text='Instructor View', size_hint=(0.5, 0.1))
+        instructor_button.bind(on_press=self.go_to_instructor)
+        layout.add_widget(instructor_button)
+        self.add_widget(layout)
+
+    def go_to_instructor(self, *args):
+        self.manager.current = 'instructor'
+    def update_rect(self, instance,x):
         """
         This method contributes to the UI layout
         """
         self.rect.size = instance.size
         self.rect.pos = instance.pos
-    
+
     def send_request(self, route, value=None):
         """
         This method handles all HTTP request to the web server using POST method.
@@ -197,15 +198,27 @@ class DroneApp(App):
         self.send_request('arm_drone')
 
     def update_throttle_step_size_label(self):
+        """
+        Label for throttle step size
+        """
         self.throttle_step_size_label.text = f'Throttle Step Size: {self.throttle_step_size}%'
 
     def update_rudder_step_size_label(self):
+        """
+        Label for rudder step size
+        """
         self.rudder_step_size_label.text = f'Rudder Step Size: {self.rudder_step_size}%'
 
     def update_elevator_step_size_label(self):
+        """
+        Label for elevator step size
+        """
         self.elevator_step_size_label.text = f'Elevator Step Size: {self.elevator_step_size}%'
 
     def update_aileron_step_size_label(self):
+        """
+        Label for aileron step size
+        """
         self.aileron_step_size_label.text = f'Aileron Step Size: {self.aileron_step_size}%'
 
     def increase_throttle_step_size(self):
@@ -351,6 +364,19 @@ class DroneApp(App):
         self.aileron_percentage += self.aileron_step_size
         self.aileron_percentage = min(self.aileron_percentage, 100)
         self.send_request('set_aileron', self.aileron_percentage)
+
+
+class DroneApp(App):
+    """
+    The main app class with all the buttons and layout
+    defined.
+    """
+    
+    def build(self):
+        screen_manager = ScreenManager()
+        screen_manager.add_widget(MainScreen(name='main'))
+        screen_manager.add_widget(InstructorScreen(name='instructor'))
+        return screen_manager
 
 # The Driver code
 if __name__ == '__main__':
