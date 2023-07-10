@@ -1,3 +1,4 @@
+# server.py
 # Copyright 2023 YG-Drone-Project
 
 from flask import Flask, request, jsonify
@@ -10,18 +11,13 @@ CORS(server)
 def is_drone_armed():
     """
     Checks to make sure that the drone is armed before allowing
-    a user to change the control surfaces
+    a user to change the control surfaces.
     """
-
     return DroneController.vehicle.armed
-
-@server.route('/get_throttle', methods=['GET'])
-def get_throttle():
-    return jsonify({"status": "success", "throttle": DroneController.get_current_value(3)}), 200
 
 @server.route('/get_yaw', methods=['GET'])
 def get_yaw():
-    return jsonify({"status": "success", "yaw": DroneController.get_current_value(4)}), 200
+    return jsonify({"status": "success", "yaw": DroneController.get_current_value(3)}), 200
 
 @server.route('/get_pitch', methods=['GET'])
 def get_pitch():
@@ -30,7 +26,6 @@ def get_pitch():
 @server.route('/get_roll', methods=['GET'])
 def get_roll():
     return jsonify({"status": "success", "roll": DroneController.get_current_value(1)}), 200
-
 
 @server.route('/arm_drone', methods=['POST'])
 def arm_drone():
@@ -54,25 +49,20 @@ def disarm_drone():
         print(f"Error Disarming drone: {str(e)}")
         return jsonify({"status": "error", "message": f"Error Disarming drone: {str(e)}"}), 500
 
-
 @server.route('/set_aileron', methods=['POST'])
 def set_aileron():
-
     return process_control_request('set_aileron', 1)
 
 @server.route('/set_elevator', methods=['POST'])
 def set_elevator():
-
     return process_control_request('set_elevator', 2)
 
 @server.route('/set_throttle', methods=['POST'])
 def set_throttle():
-
     return process_control_request('set_throttle', 3)
 
 @server.route('/set_rudder', methods=['POST'])
 def set_rudder():
-
     return process_control_request('set_rudder', 4)
 
 @server.route('/get_roll_status', methods=['GET'])
@@ -93,9 +83,8 @@ def process_control_request(control_surface, channel):
     inputs coming from the user. It checks to ensure that the drone is
     armed and that the control values in percent are within the allowed range.
     """
-    
     if not is_drone_armed():
-        return jsonify({"status": "error", "message": "Drone is not armed! Arm the drone before attemting to fly."}), 400
+        return jsonify({"status": "error", "message": "Drone is not armed! Arm the drone before attempting to fly."}), 400
 
     percent = request.json[control_surface]
 
@@ -109,7 +98,6 @@ def send_rc_command(control_surface_channel, percent):
         print(f"Setting control surface channel {control_surface_channel} to {percent}%...")
         DroneController.send_rc_command(control_surface_channel, percent)
         print("Control surface channel set successfully.")
-
         return jsonify({"status": "success", "message": "Control surface channel set successfully"}), 200
     except ValueError as ve:
         print(f"Value error: {str(ve)}")
