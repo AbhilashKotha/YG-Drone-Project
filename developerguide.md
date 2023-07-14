@@ -55,3 +55,11 @@ Welcome to the YG-Drone-Project developer guide. Here you will find our conventi
    - Use secure coding practices like validating input and avoiding vulnerabilities like SQL injection or Cross-Site Scripting (XSS).
    - Keep dependencies updated to take advantage of the latest security patches.
    - Consider using a security-focused linter to spot potential issues automatically.
+
+## Code Review Guidelines
+Conducting thorough code reviews helps maintain code quality and promote collaboration
+Review code changes for adherence to coding standards, best practices, and project conventions.
+Focus on readability, maintainability, and modularity of the code.
+Look for potential bugs, logic errors, and edge cases that may have been missed.
+Provide constructive feedback and suggestions for improvement, using a positive and respectful tone.
+Encourage meaningful variable and function names that accurately represent their purpose.
