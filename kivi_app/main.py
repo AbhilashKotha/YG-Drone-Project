@@ -1,6 +1,6 @@
 # Copyright 2023 YG-Drone-Project
 
-# Import modules 
+# Import modules
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
@@ -19,21 +19,29 @@ class DroneApp(App):
     The main app class with all the buttons and layout
     defined.
     """
-    
+        
     # Initialize values for the controls and the label
     response_label = None
     throttle_step_size_label = None
     rudder_step_size_label = None
     elevator_step_size_label = None
     aileron_step_size_label = None
+    altitude_label = None
+    pitch_label = None
+    roll_label = None
+    yaw_label = None
+    throttle_percentage = 0
     throttle_step_size = 1
+    rudder_percentage = 0
     rudder_step_size = 1
+    elevator_percentage = 0
     elevator_step_size = 1
+    aileron_percentage =0
     aileron_step_size = 1
-    throttle_percentage = 0 
-    elevator_percentage = 50
-    rudder_percentage = 50 
-    aileron_percentage = 50
+    altitude = 0
+    pitch = 0
+    roll = 0
+    yaw = 0
 
     def build(self):
         """
@@ -68,9 +76,10 @@ class DroneApp(App):
         dec_throttle_step_button.bind(on_press=self.decrease_throttle_step_size)
         step_size_controls.add_widget(dec_throttle_step_button)
 
-        self.throttle_step_size_label = Label(text=f'Throttle step size: {self.throttle_step_size}', size_hint=(1, 0.5))
+        self.throttle_step_size_label = Label(
+            text=f'Throttle step size: {self.throttle_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.throttle_step_size_label)
-        
+
         # Rudder controls
         inc_rudder_step_button = Button(text='Increase Rudder step size', size_hint=(1, 0.5))
         inc_rudder_step_button.bind(on_press=self.increase_rudder_step_size)
@@ -80,7 +89,8 @@ class DroneApp(App):
         dec_rudder_step_button.bind(on_press=self.decrease_rudder_step_size)
         step_size_controls.add_widget(dec_rudder_step_button)
 
-        self.rudder_step_size_label = Label(text=f'Rudder step size: {self.rudder_step_size}', size_hint=(1, 0.5))
+        self.rudder_step_size_label = Label(
+            text=f'Rudder step size: {self.rudder_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.rudder_step_size_label)
 
         # Elevator controls
@@ -92,7 +102,8 @@ class DroneApp(App):
         dec_elevator_step_button.bind(on_press=self.decrease_elevator_step_size)
         step_size_controls.add_widget(dec_elevator_step_button)
 
-        self.elevator_step_size_label = Label(text=f'Elevator step size: {self.elevator_step_size}', size_hint=(1, 0.5))
+        self.elevator_step_size_label = Label(
+            text=f'Elevator step size: {self.elevator_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.elevator_step_size_label)
 
         # Aileron controls
@@ -149,9 +160,37 @@ class DroneApp(App):
         main_layout.add_widget(right_controls)
         layout.add_widget(main_layout)
 
+        info_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1))
+
+        self.altitude_label = Label(text=f'Altitude: {self.altitude}')
+        info_layout.add_widget(self.altitude_label)
+
+        self.pitch_label = Label(text=f'Pitch: {self.pitch}')
+        info_layout.add_widget(self.pitch_label)
+
+        self.roll_label = Label(text=f'Roll: {self.roll}')
+        info_layout.add_widget(self.roll_label)
+
+        self.yaw_label = Label(text=f'Yaw: {self.yaw}')
+        info_layout.add_widget(self.yaw_label)
+
+        main_layout.add_widget(info_layout)
+
         return layout
     
-    def update_rect(self, instance, value):
+    def update_altitude_label(self, instance=None):
+        self.altitude_label.text = f'Altitude: {self.altitude}'
+
+    def update_pitch_label(self, instance=None):
+        self.pitch_label.text = f'Pitch: {self.pitch}'
+
+    def update_roll_label(self, instance=None):
+        self.roll_label.text = f'Roll: {self.roll}'
+
+    def update_yaw_label(self, instance=None):
+        self.yaw_label.text = f'Yaw: {self.yaw}'
+    
+    def update_rect(self, instance, value=None):
         """
         This method contributes to the UI layout
         """
@@ -178,12 +217,20 @@ class DroneApp(App):
             if response.status_code == 200:
                 message = response_json.get("message", "Error: Invalid server response")
                 self.response_label.text = message
+                self.altitude = response_json.get("altitude", self.altitude)
+                self.pitch = response_json.get("pitch", self.pitch)
+                self.roll = response_json.get("roll", self.roll)
+                self.yaw = response_json.get("yaw", self.yaw)
+                self.update_altitude_label()
+                self.update_pitch_label()
+                self.update_roll_label()
+                self.update_yaw_label()
             else:
                 message = response_json.get("message", "Error: Invalid server response")
                 self.response_label.text = message
                 print(f'Failed request to {route}. Response code:', response.status_code)
-        except requests.exceptions.RequestException as e:
-            print('Error connecting to server:', e)
+        except requests.exceptions.RequestException as exception:
+            print('Error connecting to server:', exception)
         except ValueError:
             print('Error decoding server response')
 
@@ -332,6 +379,7 @@ class DroneApp(App):
         self.elevator_percentage = max(self.elevator_percentage, 0)
         self.send_request('set_elevator', self.elevator_percentage)
 
+
     def left_aileron(self, instance):
         """
         This method decreases the aileron
@@ -350,7 +398,7 @@ class DroneApp(App):
         self.aileron_percentage = min(self.aileron_percentage, 100)
         self.send_request('set_aileron', self.aileron_percentage)
 
+
 # The Driver code
 if __name__ == '__main__':
     DroneApp().run()
-
