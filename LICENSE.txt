@@ -5,3 +5,21 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+The license includes the right to use, copy, modify, combine, publish, distribute, sublicense, and/or sell copies of the program.
+The ability to issue others sublicenses.
+
+Conditions:
+
+Users must include a copy of the MIT License in the project's documentation or accompanying materials.
+Users must retain the original copyright notice and disclaimer included with the project.
+
+Limitations:
+
+The MIT License makes no warranties or guarantees about the program. It expressly specifies that the program is given "as is" with no implicit or explicit guarantees.
+The contributors and maintainers of the YGdrone project are not responsible for any damages or legal issues resulting from the usage or distribution of the software.
+
+Compatibility:
+
+The MIT License is compatible with other open-source licenses, making it simple to connect with other projects and libraries that use different licenses.
+The MIT License has been selected for the YGdrone project to allow users and developers to freely use, edit, and distribute the project's source code while providing the required permissions and constraints. It stimulates collaboration, and implementation, and guarantees that users understand their rights and duties when using your product.
