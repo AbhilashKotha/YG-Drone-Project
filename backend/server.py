@@ -112,4 +112,4 @@ def send_rc_command(control_surface_channel, percent):
 
 if __name__ == '__main__':
     DroneController = DroneController()
-    server.run(port=8000, host='0.0.0.0', debug=False)
+    server.run(port=8000, host='0.0.0.0', debug=True)
