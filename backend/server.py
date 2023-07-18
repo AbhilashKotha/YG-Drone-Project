@@ -17,7 +17,7 @@ def is_drone_armed():
 
 @server.route('/get_altitude', methods=['GET'])
 def get_altitude():
-    return jsonify({"status": "success", "altitude": DroneController.get_altitude()}), 200
+    return jsonify({"status": "success", "altitude": DroneController.get_current_value(4)}), 200
 
 @server.route('/get_yaw', methods=['GET'])
 def get_yaw():
@@ -68,6 +68,14 @@ def set_throttle():
 @server.route('/set_rudder', methods=['POST'])
 def set_rudder():
     return process_control_request('set_rudder', 4)
+
+@server.route('/get_current_value_status', methods=['GET'])
+def get_current_value_status():
+    return jsonify({"status": "success", "current_value_status": DroneController().get_current_values()}), 200
+
+@server.route('/get_altitude_status', methods=['GET'])
+def get_altitude_status():
+    return jsonify({"status": "success", "altitude_status": DroneController.get_altitude()}), 200
 
 @server.route('/get_roll_status', methods=['GET'])
 def get_roll_status():
