@@ -1,5 +1,7 @@
 # Copyright 2023 YG-Drone-Project
-
+"""
+Module description: This module contains Python code for the UI.
+"""
 # Import modules
 from kivy.app import App
 from kivy.uix.button import Button
@@ -242,15 +244,27 @@ class DroneApp(App):
         self.send_request('arm_drone')
 
     def update_throttle_step_size_label(self):
+        """
+        Label for throttle step size
+        """
         self.throttle_step_size_label.text = f'Throttle Step Size: {self.throttle_step_size}%'
 
     def update_rudder_step_size_label(self):
+        """
+        Label for rudder step size
+        """
         self.rudder_step_size_label.text = f'Rudder Step Size: {self.rudder_step_size}%'
 
     def update_elevator_step_size_label(self):
+        """
+        Label for elevator step size
+        """
         self.elevator_step_size_label.text = f'Elevator Step Size: {self.elevator_step_size}%'
 
     def update_aileron_step_size_label(self):
+        """
+        Label for aileron step size
+        """
         self.aileron_step_size_label.text = f'Aileron Step Size: {self.aileron_step_size}%'
 
     def increase_throttle_step_size(self, instance):
