@@ -46,11 +46,6 @@ class DroneApp(App):
     yaw = 0
 
     def build(self):
-        """
-        This method lays out the app interface and buttons
-        position
-        """
-
         Config.set('graphics', 'orientation', 'landscape')
 
         layout = BoxLayout(orientation='vertical')
@@ -58,9 +53,19 @@ class DroneApp(App):
         top_layout = BoxLayout(orientation='horizontal', padding=10)
 
         left_anchor = AnchorLayout(anchor_x='left', anchor_y='top', size_hint=(0.5, 1))
-        arm_button = Button(text='Arm Drone', size_hint=(0.5, 0.1))
+
+        # Define a BoxLayout to stack the button and label vertically
+        stack_layout = BoxLayout(orientation='vertical', size_hint=(1, None))
+
+        arm_button = Button(text='Arm Drone', size_hint=(1, 0.1))
         arm_button.bind(on_press=self.arm_drone)
-        left_anchor.add_widget(arm_button)
+        stack_layout.add_widget(arm_button)
+
+        # Add a label to display the armed status
+        self.drone_armed_label = Label(text='Drone Status: Unarmed', size_hint=(1, 0.1))
+        stack_layout.add_widget(self.drone_armed_label)
+        
+        left_anchor.add_widget(stack_layout)
         top_layout.add_widget(left_anchor)
 
         # Right anchor box
@@ -242,6 +247,9 @@ class DroneApp(App):
         """
 
         self.send_request('arm_drone')
+    
+        # Update the armed status label text
+        self.drone_armed_label.text = 'Drone Status: Armed'
 
     def update_throttle_step_size_label(self):
         """
