@@ -20,9 +20,11 @@ class DroneController:
         """
         Destructor to ensure the vehicle connection is closed when the DroneController object is deleted.
         """
-        if hasattr(self, 'vehicle'):
-            self.vehicle.close()
-    
+        try:
+            if hasattr(self, 'vehicle'):
+                self.vehicle.close()
+        finally:
+            super().__del__()
     def arm_vehicle(self):
         """
         Arms the vehicle. This process might take a moment, so a loop
