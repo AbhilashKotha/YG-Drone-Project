@@ -45,11 +45,10 @@ class DroneController:
         """
 
         self.vehicle.armed = False
-        while self.vehicle.armed==True:
+        while self.vehicle.armed:
             print('Waiting for the drone to disarm.')
             time.sleep(1)
-        if not self.vehicle.armed:
-            return True
+        return True
 
     def send_rc_command(self, control_surface_channel, percent):
         """
