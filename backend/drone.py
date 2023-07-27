@@ -15,6 +15,7 @@ class DroneController:
         """
         self.vehicle = connect(self.CONNECTION_STRING, wait_ready=False)
         self.current_values = {1: 1500, 2: 1500, 3: 1000, 4: 1500}  # Initialize current values for each channel
+        self.flight_path = []
 
     def __del__(self):
         """
@@ -34,6 +35,8 @@ class DroneController:
             print('Waiting for the drone to arm.')
             time.sleep(1)
         if self.vehicle.armed:
+            # Save the flight path to a file
+            self.save_flight_path()
             return True
         
     def disarm_vehicle(self):
@@ -59,11 +62,11 @@ class DroneController:
         self.vehicle.mode = VehicleMode("MANUAL")
         self.vehicle.wait_for_mode("MANUAL")
         if self.vehicle.armed: # Check that vehicle is armed before attempting to change the channel
+            self.vehicle.add_attribute_listener('global_frame', self.log_coordinates)
             if control_surface_channel == 3: # Check if the channel is throttle 
                 pwm=int(1000 + (1000 * percent / 100))
             else:
                 pwm = int(1500 + (500 * (percent - 50) / 50)) # Set the neutral position to 1500 for all others
-            
             self.current_values[control_surface_channel] = pwm
             self.vehicle.channels.overrides = self.current_values
             return True
@@ -73,6 +76,24 @@ class DroneController:
         Retrieves the current PWM value of a specified control surface channel.
         """
         return self.current_values[control_surface_channel]
+    
+    def save_flight_path(self):
+        """
+        Save the flight path to a file
+        """
+        with open('flight_path.txt', 'w') as f:
+            for coordinate in self.flight_path:
+                f.write("Latitude: {}, Longitude: {}, Altitude: {}\n".format(
+                    coordinate.lat, coordinate.lon, coordinate.alt))
+                
+    def log_coordinates(self, name):
+        """
+        This function is used to log the coordinates of the drone.
+        It will be called whenever the 'global_frame' attribute changes.
+        """
+        print("Global Frame attribute changed, new value: %s" % self.vehicle.location.global_frame)
+        self.flight_path.append(self.vehicle.location.global_frame)
+
     
     def get_altitude(self):
         """
