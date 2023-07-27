@@ -406,10 +406,8 @@ class DroneApp(App):
         This method decreases the aileron
         """
 
-        self.aileron_percentage -= self.aileron_step_size
-        self.aileron_percentage = max(self.aileron_percentage, 0)
+        self.aileron_percentage = max(self.aileron_percentage - self.aileron_step_size, 0)
         self.send_request('set_aileron', self.aileron_percentage)
-
     def right_aileron(self, instance):
         """
         This method increases the aileron
