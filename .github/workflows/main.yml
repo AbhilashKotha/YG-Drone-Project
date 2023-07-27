@@ -37,7 +37,7 @@ jobs:
           run: |
             cd backend
             PYTHONPATH=$(pwd) pytest tests.py --timeout=3
-  lint:
+  code-lint:  # Updated the name to "code-lint" for clarity
     runs-on: ubuntu-latest
 
     steps:
