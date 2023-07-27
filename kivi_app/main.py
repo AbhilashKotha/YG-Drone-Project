@@ -233,8 +233,7 @@ class DroneApp(App):
                 self.update_roll_label()
                 self.update_yaw_label()
             else:
-                message = response_json.get("message", "Error: Invalid server response")
-                self.response_label.text = message
+                self.response_label.text = response_json.get("message", "Error: Invalid server response")
                 print(f'Failed request to {route}. Response code:', response.status_code)
         except requests.exceptions.RequestException as exception:
             print('Error connecting to server:', exception)
