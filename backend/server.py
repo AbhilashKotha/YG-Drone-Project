@@ -67,16 +67,18 @@ def process_control_request(control_surface, channel):
     inputs coming from the user. It checks to ensure that the drone is
     armed and that the control values in percent are within the allowed range.
     """
-    
+
     if not is_drone_armed():
-        return jsonify({"status": "error", "message": "Drone is not armed! Arm the drone before attemting to fly."}), 400
+        return jsonify({"status": "error", "message": "Drone is not armed! Arm the drone before attempting to fly."}), 400
 
     percent = request.json[control_surface]
 
-    if not (0 <= percent <= 100):
-        return jsonify({"status": "error", "message": "Percent value should be between 0 and 100"}), 400
+    # Updated line: Check if the percent value is within the allowed range (0 to 100).
+    # If it's not, set it to the nearest limit (0 or 100).
+    percent = min(max(percent, 0), 100)
 
     return send_rc_command(channel, percent)
+
 
 def send_rc_command(control_surface_channel, percent):
     try:
