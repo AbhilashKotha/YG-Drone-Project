@@ -53,6 +53,17 @@ def disarm_drone():
     except Exception as e:
         print(f"Error Disarming drone: {str(e)}")
         return jsonify({"status": "error", "message": f"Error Disarming drone: {str(e)}"}), 500
+        # ... (existing code)
+
+@server.route('/get_battery', methods=['GET'])
+def get_battery():
+    try:
+        battery_status = DroneController.get_battery_status()
+        return jsonify({"status": "success", "battery": battery_status}), 200
+    except Exception as e:
+        print(f"Error getting battery status: {str(e)}")
+        return jsonify({"status": "error", "message": f"Error getting battery status: {str(e)}"}), 500
+
 
 
 @server.route('/set_aileron', methods=['POST'])
@@ -104,6 +115,7 @@ def send_rc_command(control_surface_channel, percent):
         return jsonify({"status": "error", "message": f"Value error: {str(ve)}"}), 400
     except Exception as e:
         print(f"Error setting control surface channel: {str(e)}")
+ 
         return jsonify({"status": "error", "message": f"Error setting control surface channel: {str(e)}"}), 500
 
 if __name__ == '__main__':
