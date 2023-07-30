@@ -4,6 +4,10 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from drone import DroneController
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 server = Flask(__name__)
 CORS(server)
@@ -34,23 +38,23 @@ def get_roll():
 @server.route('/arm_drone', methods=['POST'])
 def arm_drone():
     try:
-        print("Arming drone...")
+        logger.info("Arming drone...")
         result = DroneController.arm_vehicle()
-        print("Drone armed successfully.")
+        logger.info("Drone armed successfully.")
         return jsonify({"status": "success", "message": "Drone armed successfully"}), 200
     except Exception as e:
-        print(f"Error arming drone: {str(e)}")
+        logger.error(f"Error arming drone: {str(e)}")
         return jsonify({"status": "error", "message": f"Error arming drone: {str(e)}"}), 500
 
 @server.route('/disarm_drone', methods=['POST'])
 def disarm_drone():
     try:
-        print("Disarming drone...")
+        logger.info("Disarming drone...")
         result = DroneController.disarm_vehicle()
-        print("Drone Disarmed successfully.")
+        logger.info("Drone Disarmed successfully.")
         return jsonify({"status": "success", "message": "Drone Disarmed successfully"}), 200
     except Exception as e:
-        print(f"Error Disarming drone: {str(e)}")
+        logger.error(f"Error Disarming drone: {str(e)}")
         return jsonify({"status": "error", "message": f"Error Disarming drone: {str(e)}"}), 500
 
 @server.route('/set_aileron', methods=['POST'])
@@ -107,15 +111,15 @@ def process_control_request(control_surface, channel):
 
 def send_rc_command(control_surface_channel, percent):
     try:
-        print(f"Setting control surface channel {control_surface_channel} to {percent}%...")
+        logger.info(f"Setting control surface channel {control_surface_channel} to {percent}%...")
         DroneController.send_rc_command(control_surface_channel, percent)
-        print("Control surface channel set successfully.")
+        logger.info("Control surface channel set successfully.")
         return jsonify({"status": "success", "message": "Control surface channel set successfully"}), 200
     except ValueError as ve:
-        print(f"Value error: {str(ve)}")
+        logger.error(f"Value error: {str(ve)}")
         return jsonify({"status": "error", "message": f"Value error: {str(ve)}"}), 400
     except Exception as e:
-        print(f"Error setting control surface channel: {str(e)}")
+        logger.error(f"Error setting control surface channel: {str(e)}")
         return jsonify({"status": "error", "message": f"Error setting control surface channel: {str(e)}"}), 500
 
 if __name__ == '__main__':

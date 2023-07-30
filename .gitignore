@@ -13,6 +13,8 @@ venv/
 # Pyhton cache files
 __pycache__/
 
+flight_path.txt
+
 ardupilot/
 
 # Temporary files created by Metro to check the health of the file watcher
