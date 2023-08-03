@@ -12,29 +12,40 @@ from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle
 from kivy.config import Config
 import requests
-from kivy.uix.screenmanager import Screen, ScreenManager
-from instructor_app import InstructorScreen
 
 Config.set('graphics', 'width', '360')
 Config.set('graphics', 'height', '640')
 
-class MainScreen(Screen):
+class DroneApp(App):
+    """
+    The main app class with all the buttons and layout
+    defined.
+    """
+        
     # Initialize values for the controls and the label
     response_label = None
     throttle_step_size_label = None
     rudder_step_size_label = None
     elevator_step_size_label = None
     aileron_step_size_label = None
-    throttle_step_size = 1
-    rudder_step_size = 1
-    elevator_step_size = 1
-    aileron_step_size = 1
+    altitude_label = None
+    pitch_label = None
+    roll_label = None
+    yaw_label = None
     throttle_percentage = 0
-    elevator_percentage = 50
-    rudder_percentage = 50
-    aileron_percentage = 50
-    def __init__(self, **kwargs):
-        super(MainScreen, self).__init__(**kwargs)
+    throttle_step_size = 1
+    rudder_percentage = 0
+    rudder_step_size = 1
+    elevator_percentage = 0
+    elevator_step_size = 1
+    aileron_percentage =0
+    aileron_step_size = 1
+    altitude = 0
+    pitch = 0
+    roll = 0
+    yaw = 0
+
+    def build(self):
         Config.set('graphics', 'orientation', 'landscape')
 
         layout = BoxLayout(orientation='vertical')
@@ -42,9 +53,19 @@ class MainScreen(Screen):
         top_layout = BoxLayout(orientation='horizontal', padding=10)
 
         left_anchor = AnchorLayout(anchor_x='left', anchor_y='top', size_hint=(0.5, 1))
-        arm_button = Button(text='Arm Drone', size_hint=(0.5, 0.1))
+
+        # Define a BoxLayout to stack the button and label vertically
+        stack_layout = BoxLayout(orientation='vertical', size_hint=(1, None))
+
+        arm_button = Button(text='Arm Drone', size_hint=(1, 0.1))
         arm_button.bind(on_press=self.arm_drone)
-        left_anchor.add_widget(arm_button)
+        stack_layout.add_widget(arm_button)
+
+        # Add a label to display the armed status
+        self.drone_armed_label = Label(text='Drone Status: Unarmed', size_hint=(1, 0.1))
+        stack_layout.add_widget(self.drone_armed_label)
+        
+        left_anchor.add_widget(stack_layout)
         top_layout.add_widget(left_anchor)
 
         # Right anchor box
@@ -101,8 +122,7 @@ class MainScreen(Screen):
         dec_aileron_step_button.bind(on_press=self.decrease_aileron_step_size)
         step_size_controls.add_widget(dec_aileron_step_button)
 
-        self.aileron_step_size_label = Label(
-            text=f'Aileron step size: {self.aileron_step_size}', size_hint=(1, 0.5))
+        self.aileron_step_size_label = Label(text=f'Aileron step size: {self.aileron_step_size}', size_hint=(1, 0.5))
         step_size_controls.add_widget(self.aileron_step_size_label)
 
         right_anchor.add_widget(step_size_controls)
@@ -147,20 +167,43 @@ class MainScreen(Screen):
         main_layout.add_widget(right_controls)
         layout.add_widget(main_layout)
 
-        instructor_button = Button(text='Instructor View', size_hint=(0.5, 0.1))
-        instructor_button.bind(on_press=self.go_to_instructor)
-        layout.add_widget(instructor_button)
-        self.add_widget(layout)
+        info_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1))
 
-    def go_to_instructor(self, *args):
-        self.manager.current = 'instructor'
-    def update_rect(self, instance,x):
+        self.altitude_label = Label(text=f'Altitude: {self.altitude}')
+        info_layout.add_widget(self.altitude_label)
+
+        self.pitch_label = Label(text=f'Pitch: {self.pitch}')
+        info_layout.add_widget(self.pitch_label)
+
+        self.roll_label = Label(text=f'Roll: {self.roll}')
+        info_layout.add_widget(self.roll_label)
+
+        self.yaw_label = Label(text=f'Yaw: {self.yaw}')
+        info_layout.add_widget(self.yaw_label)
+
+        main_layout.add_widget(info_layout)
+
+        return layout
+    
+    def update_altitude_label(self, instance=None):
+        self.altitude_label.text = f'Altitude: {self.altitude}'
+
+    def update_pitch_label(self, instance=None):
+        self.pitch_label.text = f'Pitch: {self.pitch}'
+
+    def update_roll_label(self, instance=None):
+        self.roll_label.text = f'Roll: {self.roll}'
+
+    def update_yaw_label(self, instance=None):
+        self.yaw_label.text = f'Yaw: {self.yaw}'
+    
+    def update_rect(self, instance, value=None):
         """
         This method contributes to the UI layout
         """
         self.rect.size = instance.size
         self.rect.pos = instance.pos
-
+    
     def send_request(self, route, value=None):
         """
         This method handles all HTTP request to the web server using POST method.
@@ -181,6 +224,14 @@ class MainScreen(Screen):
             if response.status_code == 200:
                 message = response_json.get("message", "Error: Invalid server response")
                 self.response_label.text = message
+                self.altitude = response_json.get("altitude", self.altitude)
+                self.pitch = response_json.get("pitch", self.pitch)
+                self.roll = response_json.get("roll", self.roll)
+                self.yaw = response_json.get("yaw", self.yaw)
+                self.update_altitude_label()
+                self.update_pitch_label()
+                self.update_roll_label()
+                self.update_yaw_label()
             else:
                 message = response_json.get("message", "Error: Invalid server response")
                 self.response_label.text = message
@@ -190,12 +241,15 @@ class MainScreen(Screen):
         except ValueError:
             print('Error decoding server response')
 
-    def arm_drone(self):
+    def arm_drone(self, instance):
         """
         Arm the drone request
         """
 
         self.send_request('arm_drone')
+    
+        # Update the armed status label text
+        self.drone_armed_label.text = 'Drone Status: Armed'
 
     def update_throttle_step_size_label(self):
         """
@@ -221,7 +275,7 @@ class MainScreen(Screen):
         """
         self.aileron_step_size_label.text = f'Aileron Step Size: {self.aileron_step_size}%'
 
-    def increase_throttle_step_size(self):
+    def increase_throttle_step_size(self, instance):
         """
         Increase step size of throttle
         """
@@ -230,7 +284,7 @@ class MainScreen(Screen):
             self.throttle_step_size += 1
             self.update_throttle_step_size_label()
 
-    def decrease_throttle_step_size(self):
+    def decrease_throttle_step_size(self, instance):
         """
         Decrease step size of throttle
         """
@@ -239,7 +293,7 @@ class MainScreen(Screen):
             self.throttle_step_size -= 1
             self.update_throttle_step_size_label()
 
-    def increase_rudder_step_size(self):
+    def increase_rudder_step_size(self, instance):
         """
         Increase step size of rudder
         """
@@ -248,7 +302,7 @@ class MainScreen(Screen):
             self.rudder_step_size += 1
             self.update_rudder_step_size_label()
 
-    def decrease_rudder_step_size(self):
+    def decrease_rudder_step_size(self, instance):
         """
         Decrease step size of rudder
         """
@@ -257,7 +311,7 @@ class MainScreen(Screen):
             self.rudder_step_size -= 1
             self.update_rudder_step_size_label()
 
-    def increase_elevator_step_size(self):
+    def increase_elevator_step_size(self, instance):
         """
         Increase step size of elevator
         """
@@ -266,7 +320,7 @@ class MainScreen(Screen):
             self.elevator_step_size += 1
             self.update_elevator_step_size_label()
 
-    def decrease_elevator_step_size(self):
+    def decrease_elevator_step_size(self, instance):
         """
         Decrease step size of elevator
         """
@@ -275,7 +329,7 @@ class MainScreen(Screen):
             self.elevator_step_size -= 1
             self.update_elevator_step_size_label()
 
-    def increase_aileron_step_size(self):
+    def increase_aileron_step_size(self, instance):
         """
         Increase step size of aileron
         """
@@ -284,7 +338,7 @@ class MainScreen(Screen):
             self.aileron_step_size += 1
             self.update_aileron_step_size_label()
 
-    def decrease_aileron_step_size(self):
+    def decrease_aileron_step_size(self, instance):
         """
         Decrease step size of aileron
         """
@@ -293,7 +347,7 @@ class MainScreen(Screen):
             self.aileron_step_size -= 1
             self.update_aileron_step_size_label()
 
-    def increase_throttle(self):
+    def increase_throttle(self, instance):
         """
         This method increases the throttle
         """
@@ -302,7 +356,7 @@ class MainScreen(Screen):
         self.throttle_percentage = min(self.throttle_percentage, 100)
         self.send_request('set_throttle', self.throttle_percentage)
 
-    def decrease_throttle(self):
+    def decrease_throttle(self, instance):
         """
         This method decreases the throttle
         """
@@ -311,7 +365,7 @@ class MainScreen(Screen):
         self.throttle_percentage = max(self.throttle_percentage, 0)
         self.send_request('set_throttle', self.throttle_percentage)
 
-    def left_rudder(self):
+    def left_rudder(self, instance):
         """
         This method decreases the rudder
         """
@@ -320,7 +374,7 @@ class MainScreen(Screen):
         self.rudder_percentage = max(self.rudder_percentage, 0)
         self.send_request('set_rudder', self.rudder_percentage)
 
-    def right_rudder(self):
+    def right_rudder(self, instance):
         """
         This method increases the rudder
         """
@@ -329,7 +383,7 @@ class MainScreen(Screen):
         self.rudder_percentage = min(self.rudder_percentage, 100)
         self.send_request('set_rudder', self.rudder_percentage)
 
-    def increase_elevator(self):
+    def increase_elevator(self, instance):
         """
         This method increases the elevator
         """
@@ -338,7 +392,7 @@ class MainScreen(Screen):
         self.elevator_percentage = min(self.elevator_percentage, 100)
         self.send_request('set_elevator', self.elevator_percentage)
 
-    def decrease_elevator(self):
+    def decrease_elevator(self, instance):
         """
         This method decreases the elevator
         """
@@ -347,7 +401,8 @@ class MainScreen(Screen):
         self.elevator_percentage = max(self.elevator_percentage, 0)
         self.send_request('set_elevator', self.elevator_percentage)
 
-    def left_aileron(self):
+
+    def left_aileron(self, instance):
         """
         This method decreases the aileron
         """
@@ -356,7 +411,7 @@ class MainScreen(Screen):
         self.aileron_percentage = max(self.aileron_percentage, 0)
         self.send_request('set_aileron', self.aileron_percentage)
 
-    def right_aileron(self):
+    def right_aileron(self, instance):
         """
         This method increases the aileron
         """
@@ -365,18 +420,6 @@ class MainScreen(Screen):
         self.aileron_percentage = min(self.aileron_percentage, 100)
         self.send_request('set_aileron', self.aileron_percentage)
 
-
-class DroneApp(App):
-    """
-    The main app class with all the buttons and layout
-    defined.
-    """
-    
-    def build(self):
-        screen_manager = ScreenManager()
-        screen_manager.add_widget(MainScreen(name='main'))
-        screen_manager.add_widget(InstructorScreen(name='instructor'))
-        return screen_manager
 
 # The Driver code
 if __name__ == '__main__':

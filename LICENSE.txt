@@ -1,10 +1,25 @@
-I would advise using the following open source license for a drone controller app, taking into account the nature of the project and any potential safety implications:
+Copyright 2023 YG-Drone-Project
 
-Version 3.0 of the GNU General Public License (GPL)
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-Rationale:
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Copyleft: Since the GPL-3.0 license is a copyleft license, all modifications and derivative works based on your project must be distributed under the same terms. This guarantees that the drone controller app's essential features and security precautions continue to be open source and accessible to the public.
+The license includes the right to use, copy, modify, combine, publish, distribute, sublicense, and/or sell copies of the program.
+The ability to issue others sublicenses.
 
-User Freedom: The GPL-3.0 license ensures user freedom by mandating that anyone who shares or modifies your software must likewise make the related source code available. Collaboration, openness, and community involvement are encouraged by this.
+Conditions:
+
+Users must include a copy of the MIT License in the project's documentation or accompanying materials.
+Users must retain the original copyright notice and disclaimer included with the project.
+
+Limitations:
+
+The MIT License makes no warranties or guarantees about the program. It expressly specifies that the program is given "as is" with no implicit or explicit guarantees.
+The contributors and maintainers of the YGdrone project are not responsible for any damages or legal issues resulting from the usage or distribution of the software.
+
+Compatibility:
+
+The MIT License is compatible with other open-source licenses, making it simple to connect with other projects and libraries that use different licenses.
+The MIT License has been selected for the YGdrone project to allow users and developers to freely use, edit, and distribute the project's source code while providing the required permissions and constraints. It stimulates collaboration, and implementation, and guarantees that users understand their rights and duties when using your product.
