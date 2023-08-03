@@ -7,6 +7,17 @@ from drone import DroneController
 server = Flask(__name__)
 CORS(server)
 
+SECRET_KEY = 'your_secret_key'
+
+def is_authorized():
+    """
+    Checks if the request contains the correct authorization header.
+    Replace 'your_secret_key' with the secret key used by the client application.
+    """
+    auth_header = request.headers.get('Authorization')
+    return auth_header == f"Bearer {SECRET_KEY}"
+
+
 def is_drone_armed():
     """
     Checks to make sure that the drone is armed before allowing
