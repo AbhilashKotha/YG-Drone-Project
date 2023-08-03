@@ -17,7 +17,7 @@ class InstructorScreen(Screen):
         layout.add_widget(display_button)
 
         scroll_view = ScrollView(size_hint=(1, 0.9))
-        self.logs_label = Label(text='', size_hint=(None, None))
+        self.logs_label = Label(text='', size_hint=(1, None))  # Change the size_hint here
         self.logs_label.bind(size=self.logs_label.setter('text_size'))
         scroll_view.add_widget(self.logs_label)
         layout.add_widget(scroll_view)
@@ -33,3 +33,10 @@ class InstructorScreen(Screen):
                 self.logs_label.text = logs
         except FileNotFoundError:
             self.logs_label.text = 'Logs file not found.'
+
+class MyApp(App):
+    def build(self):
+        return InstructorScreen()
+
+if __name__ == '__main__':
+    MyApp().run()
