@@ -12,11 +12,13 @@ from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle
 from kivy.config import Config
 import requests
+from kivy.uix.screenmanager import Screen, ScreenManager
+from instructor_app import InstructorScreen
 
 Config.set('graphics', 'width', '360')
 Config.set('graphics', 'height', '640')
 
-class DroneApp(App):
+class MainScreen(Screen):
     """
     The main app class with all the buttons and layout
     defined.
@@ -45,7 +47,8 @@ class DroneApp(App):
     roll = 0
     yaw = 0
 
-    def build(self):
+    def __init__(self, **kwargs):
+        super(MainScreen, self).__init__(**kwargs)
         Config.set('graphics', 'orientation', 'landscape')
 
         layout = BoxLayout(orientation='vertical')
@@ -183,8 +186,14 @@ class DroneApp(App):
 
         main_layout.add_widget(info_layout)
 
-        return layout
-    
+        instructor_button = Button(text='Instructor View', size_hint=(0.5, 0.1))
+        instructor_button.bind(on_press=self.go_to_instructor)
+        layout.add_widget(instructor_button)
+        self.add_widget(layout)
+
+    def go_to_instructor(self, *args):
+        self.manager.current = 'instructor'
+
     def update_altitude_label(self, instance=None):
         self.altitude_label.text = f'Altitude: {self.altitude}'
 
@@ -420,6 +429,17 @@ class DroneApp(App):
         self.aileron_percentage = min(self.aileron_percentage, 100)
         self.send_request('set_aileron', self.aileron_percentage)
 
+class DroneApp(App):
+    """
+    The main app class with all the buttons and layout
+    defined.
+    """
+    
+    def build(self):
+        screen_manager = ScreenManager()
+        screen_manager.add_widget(MainScreen(name='main'))
+        screen_manager.add_widget(InstructorScreen(name='instructor'))
+        return screen_manager
 
 # The Driver code
 if __name__ == '__main__':
