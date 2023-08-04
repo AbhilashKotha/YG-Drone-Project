@@ -9,12 +9,12 @@ Unlike most radio remotes, the YG-Drone-Project remote does not need any extra p
 ### Who are the developers?
 The project currently has below 6 active contributors and we welcome any interested developers to contribute. We are looking for contributions in both technical and non-technical ways. 
 
-[AbhilashKotha](https://github.com/AbhilashKotha)
-[vivekanandareddy-ponugoti](https://github.com/vivekanandareddy-ponugoti)
-[praneethreddy9](https://github.com/praneethreddy9)
-[rdonadula](https://github.com/rdonadula)
-[pavan6135](https://github.com/pavan6135)
-[vivek50399](https://github.com/vivek50399)
+[AbhilashKotha](https://github.com/AbhilashKotha)  
+[vivekanandareddy-ponugoti](https://github.com/vivekanandareddy-ponugoti)  
+[praneethreddy9](https://github.com/praneethreddy9)  
+[rdonadula](https://github.com/rdonadula)  
+[pavan6135](https://github.com/pavan6135)  
+[vivek50399](https://github.com/vivek50399)  
 
 ### How to engage in development-related discussions?
 We have a discussion forum available on GitHub and we welcome any ideas and suggestions on the same. Below is the link to access the same https://github.com/AbhilashKotha/YG-Drone-Project/discussions
