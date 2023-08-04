@@ -237,6 +237,7 @@ class MainScreen(Screen):
                 self.pitch = response_json.get("pitch", self.pitch)
                 self.roll = response_json.get("roll", self.roll)
                 self.yaw = response_json.get("yaw", self.yaw)
+                # Update the altitude, pitch, roll, and yaw labels
                 self.update_altitude_label()
                 self.update_pitch_label()
                 self.update_roll_label()
