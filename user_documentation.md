@@ -53,6 +53,7 @@ To safely disconnect the app from your drone:
 YG-Drone-Project is an open-source project licensed under the MIT License. You can find more details in the [License file](https://github.com/AbhilashKotha/YG-Drone-Project/blob/main/LICENSE.txt).
 
 ## How to Run
+Download the latest release files from [here](https://github.com/AbhilashKotha/YG-Drone-Project/releases)  
 For detailed instructions on running the application, visit our [GitHub page](https://github.com/AbhilashKotha/YG-Drone-Project/blob/main/how_to_run.md).
 
 ## Conclusion
