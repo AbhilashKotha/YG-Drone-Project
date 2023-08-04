@@ -3,6 +3,22 @@
 ## Introduction
 Welcome to the YG-Drone-Project user documentation! This guide will help you get started with our mobile application, which allows you to control your drone using your iOS or Android device. Whether you're a drone enthusiast, student, or educator, this easy-to-use app will provide you with a hands-on learning experience about the principles of flight and electronics.
 
+# Why YG-Drone-Project?
+Unlike most radio remotes, the YG-Drone-Project remote does not need any extra physical remote devices to operate the drone. It only needs a smartphone which is now easily available to everyone. The installation is as easy as installing an application from the app store once the APK file is ready. This will not need much user education and makes it easy for the learners to fly a drone. In addition, it also reduces the cost.
+
+# Who are the developers?
+The project currently has below 6 active contributors and we welcome any interested developers to contribute. We are looking for contributions in both technical and non-technical ways. 
+
+@AbhilashKotha
+@vivekanandareddy-ponugoti
+@praneethreddy9
+@rdonadula
+@pavan6135
+@vivek50399
+
+# How to engage in development-related discussions?
+We have a discussion forum available on GitHub and we welcome any ideas and suggestions on the same. Below is the link to access the same https://github.com/AbhilashKotha/YG-Drone-Project/discussions
+
 ## Getting Started
 1. Install the YG-Drone-Project app on your iOS or Android device.
 2. Ensure Bluetooth is turned on both on your mobile device and the drone's receiver.
