@@ -76,11 +76,15 @@ class DroneController:
         """
         return self.current_values[control_surface_channel]
 
-    def save_flight_path(self):
-        """
-        Save the flight path to a file
-        """
-        with open('flight_path.txt', 'w') as f:
-            for coordinate in self.flight_path:
-                f.write("Latitude: {}, Longitude: {}, Altitude: {}\n".format(
-                    coordinate.lat, coordinate.lon, coordinate.alt))
+  def save_flight_path(self):
+    """
+    Save the flight path to a file
+    """
+    with open('flight_path.txt', 'w') as f:
+        coordinate_lines = [
+            "Latitude: {}, Longitude: {}, Altitude: {}".format(
+                coordinate.lat, coordinate.lon, coordinate.alt
+            )
+            for coordinate in self.flight_path
+        ]
+        f.write("\n".join(coordinate_lines))
