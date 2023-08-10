@@ -58,3 +58,5 @@ For detailed instructions on running the application, visit our [GitHub page](ht
 
 ## Conclusion
 The YG-Drone-Project app empowers users to control drones with ease, making it an ideal tool for learning and exploring the world of science and technology. Our user-friendly design and helpful features aim to create an engaging and informative experience for all drone enthusiasts, students, and educators. We welcome your feedback and contributions to further improve the YG-Drone-Project!
+
+We dedicate ourselves to ongoing improvement and innovation as we work to improve the YG-Drone-Project. We invite users, developers, and drone enthusiasts to participate actively in conversations, provide insights, and help the project flourish. Your useful feedback and new insights are critical as we work to establish a diverse and user-centric environment for learning and exploration in the field of drones and technology. Through the YG-Drone-Project, you can help shape the future of drone control and education.
