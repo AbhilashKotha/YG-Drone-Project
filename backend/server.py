@@ -14,8 +14,8 @@ CORS(server)
 
 def is_drone_armed():
     """
-    Checks to make sure that the drone is armed before allowing
-    a user to change the control surfaces.
+    Verifies if the drone is armed before permitting changes
+    to control surfaces by users.
     """
     return DroneController.vehicle.armed
 
