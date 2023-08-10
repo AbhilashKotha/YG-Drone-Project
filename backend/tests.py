@@ -115,7 +115,8 @@ def test_get_pitch(client, drone_controller):
         assert data["pitch"] == 1500
 
 def test_get_roll(client, drone_controller):
-    drone_controller.get_current_value.return_value = 1500
+    expected_roll_value = 1500
+    drone_controller.get_current_value.return_value = expected_roll_value
     with patch("server.DroneController", drone_controller):
         response = client.get('/get_roll')
         assert response.status_code == 200
@@ -123,4 +124,4 @@ def test_get_roll(client, drone_controller):
         assert "status" in data
         assert data["status"] == "success"
         assert "roll" in data
-        assert data["roll"] == 1500
+        assert data["roll"] == expected_roll_value
