@@ -34,6 +34,9 @@ The app offers four controls for precise drone movement:
 2. Aileron and Elevator: Adjust the drone's roll and pitch with the horizontal control wheel.
 3. Rudder: Control the drone's yaw with the vertical control wheel next to the horizontal one.
 
+## Advanced Flight Modes
+Stay tuned for upcoming updates that will introduce new flight modes, allowing you to experiment with different flying techniques and maneuvers. Unlock the full potential of your drone and take your skills to new heights.
+
 ## Configuring Settings
 Customize the control button sensitivity to match your preferences and drone model.
 1. Tap the "Settings" icon.
