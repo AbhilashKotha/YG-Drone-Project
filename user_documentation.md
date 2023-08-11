@@ -19,6 +19,9 @@ The project currently has below 6 active contributors and we welcome any interes
 ### How to engage in development-related discussions?
 We have a discussion forum available on GitHub and we welcome any ideas and suggestions on the same. Below is the link to access the same https://github.com/AbhilashKotha/YG-Drone-Project/discussions
 
+## Learning Together 
+The YG-Drone-Project community is a learning hub. Engage with others who share your passion for drones, technology, and education. Collaborate, exchange insights, and grow together as drone enthusiasts.
+
 ## Getting Started
 1. Install the YG-Drone-Project app on your iOS or Android device.
 2. Ensure Bluetooth is turned on both on your mobile device and the drone's receiver.
