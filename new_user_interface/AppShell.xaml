@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="UIRemote.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:UIRemote"
+    Shell.FlyoutBehavior="Flyout">
+
+    <!-- Define your menu items here -->
+    <FlyoutItem Title="Remote (Buttons)">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Set Step Size">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:SettingsPage}"
+            Route="SettingsPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Instructor">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:InstructorPage}"
+            Route="InstructorPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Joystick">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:PlusShapeControlsPage}"
+            Route="PlusShapeControlsPage" />
+    </FlyoutItem>
+
+</Shell>
