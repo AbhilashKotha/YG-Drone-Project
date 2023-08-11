@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:UIRemote"
+             x:Class="UIRemote.PlusShapeControlsPage">
+
+    <Grid BackgroundColor="LightGray" Padding="50">
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+
+            <ColumnDefinition Width="Auto" />
+
+        </Grid.ColumnDefinitions>
+        <!--<Ellipse x:Name="bigCircle" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center" VerticalOptions="Center" Stroke="Black" StrokeThickness="2" Grid.Column="0"/>-->
+        <Image  Source="roundwitharrows.svg" x:Name="bigCircle" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0"/>
+        <Ellipse x:Name="smallCircle" WidthRequest="50" HeightRequest="50" HorizontalOptions="Center" VerticalOptions="Center" Stroke="White" Fill="black" Grid.Column="0">
+            <Ellipse.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="OnPanUpdated" />
+            </Ellipse.GestureRecognizers>
+        </Ellipse>
+
+        <Label x:Name="currentValueLabel"
+               Grid.Column="2"/>
+
+        <Image  Source="roundwitharrows.svg" x:Name="bigCircle2" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="4"/>
+
+        <Ellipse x:Name="smallCircle2" WidthRequest="50" HeightRequest="50" HorizontalOptions="Center" VerticalOptions="Center" Stroke="white" Fill="black" Grid.Column="4">
+            <Ellipse.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="OnPanUpdated2" />
+            </Ellipse.GestureRecognizers>
+        </Ellipse>
+    </Grid>
+
+</ContentPage>
