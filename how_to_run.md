@@ -92,6 +92,19 @@ pip install -r requirements.txt
 python3 server.py
 ```
 
+# How to run the application with the new UI
+
+## Option 1
+- Open UIRemote.sln from new_user_interface folder in VS
+- Run the application in release or debug mode.
+- Select the emulator device
+## Option 2
+- Open any Android emulator
+- Drag the apk file "drone_remote.drone_remote.apk" on to the emulator
+- Install the application and use the app
+
+Below are some of the screenshots for your reference.
+
 # How the App Works
 
 <p align="center">
