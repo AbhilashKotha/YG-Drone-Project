@@ -105,6 +105,12 @@ python3 server.py
 
 Below are some of the screenshots for your reference.
 
+![image](https://github.com/AbhilashKotha/YG-Drone-Project/assets/113061137/36afa47b-5eec-4d4b-b52c-443c4d165863)
+![image](https://github.com/AbhilashKotha/YG-Drone-Project/assets/113061137/6777583d-2a68-4e8f-aba3-3ed5717bbd8a)
+![image](https://github.com/AbhilashKotha/YG-Drone-Project/assets/113061137/d0722fb1-8103-4f7b-a7af-7b9337499c9b)
+![image](https://github.com/AbhilashKotha/YG-Drone-Project/assets/113061137/808c83b1-8b8a-4d06-803d-14633ab15ddc)
+
+
 # How the App Works
 
 <p align="center">
