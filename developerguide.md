@@ -23,6 +23,12 @@ Welcome to the YG-Drone-Project developer guide. Here you will find our conventi
    - Contributions will be reviewed by the core development team, and once approved, merged into the main branch.
    - By contributing to the project, you agree to release your contributions under the project's chosen open-source license (MIT License).
 
+## Development Environment
+
+   - Setting up the development environment
+   - Version control setup (if applicable for future enhancements)
+   - IDE and code editor recommendations
+
 ## Documentation Guidelines
 ### Good documentation is just as important as good code:
    - We use Sphinx to keep our documentation consistent.
@@ -48,6 +54,11 @@ Welcome to the YG-Drone-Project developer guide. Here you will find our conventi
    - Code reviews aren't just about style and correctness, we also want to make sure the code runs quickly.
    - Stress test the system to make sure it can handle heavy loads.
 
+## Remote Control
+
+   - Integration of remote control mechanisms (joystick, smartphone app, etc.)
+   - Code samples for handling remote control inputs
+
 ## Security Guidelines
 ### We take security very seriously:
    - Avoid common security errors like the OWASP Top Ten vulnerabilities.
@@ -55,6 +66,11 @@ Welcome to the YG-Drone-Project developer guide. Here you will find our conventi
    - Use secure coding practices like validating input and avoiding vulnerabilities like SQL injection or Cross-Site Scripting (XSS).
    - Keep dependencies updated to take advantage of the latest security patches.
    - Consider using a security-focused linter to spot potential issues automatically.
+
+## Safety Measures
+   - Safety guidelines for operating the drone
+   - Emergency shutdown procedures
+   - Tips for handling unexpected behaviors
 
 ## Additional Tips
 ### Code Review Guidelines:
