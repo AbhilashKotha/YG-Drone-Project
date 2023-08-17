@@ -72,6 +72,9 @@ This part is responsible for running the automated test cases on the repo
 
 This part is to analyze the code in terms of code standards
 
+## Troubleshooting
+Since technical issues can arise during the use of the app, consider including a troubleshooting section that addresses common problems users might encounter and provides solutions.
+
 
 ## License
 
