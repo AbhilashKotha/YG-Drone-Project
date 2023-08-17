@@ -56,7 +56,16 @@ YG-Drone-Project is an open-source project licensed under the MIT License. You c
 Download the latest release files from [here](https://github.com/AbhilashKotha/YG-Drone-Project/releases)  
 For detailed instructions on running the application, visit our [GitHub page](https://github.com/AbhilashKotha/YG-Drone-Project/blob/main/how_to_run.md).
 
+## Use-case Implementation
+Layed a graphical depiction of user's possible interaction to showcase how the YG-Drone-Project app operates with mobile phone and application to make successful drone connection, with provided conditional clauses.
+
+## Tools 
+To design the YG-Drone-Project's user interface we use "flask framework", and "PyTest" for writing tests for APIs.
+To denote and command the drone's movements we use "Dronekit" library. 
+In order to idenitfy and rectify the concurrent code errors we used "exceptiongroup".
+
 ## Conclusion
 The YG-Drone-Project app empowers users to control drones with ease, making it an ideal tool for learning and exploring the world of science and technology. Our user-friendly design and helpful features aim to create an engaging and informative experience for all drone enthusiasts, students, and educators. We welcome your feedback and contributions to further improve the YG-Drone-Project!
 
 We dedicate ourselves to ongoing improvement and innovation as we work to improve the YG-Drone-Project. We invite users, developers, and drone enthusiasts to participate actively in conversations, provide insights, and help the project flourish. Your useful feedback and new insights are critical as we work to establish a diverse and user-centric environment for learning and exploration in the field of drones and technology. Through the YG-Drone-Project, you can help shape the future of drone control and education.
+

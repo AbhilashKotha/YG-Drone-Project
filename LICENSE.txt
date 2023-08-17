@@ -23,3 +23,11 @@ Compatibility:
 
 The MIT License is compatible with other open-source licenses, making it simple to connect with other projects and libraries that use different licenses.
 The MIT License has been selected for the YGdrone project to allow users and developers to freely use, edit, and distribute the project's source code while providing the required permissions and constraints. It stimulates collaboration, and implementation, and guarantees that users understand their rights and duties when using your product.
+
+Patents:
+
+The MIT License does not offer patents, Apache License 2.0 only offers this type of patents for dornes.
+
+Attribution: 
+
+Determine if you want users to give you credit for your work. Some licenses require that users include your copyright notice and license text when redistributing the code.
