@@ -23,3 +23,13 @@ Compatibility:
 
 The MIT License is compatible with other open-source licenses, making it simple to connect with other projects and libraries that use different licenses.
 The MIT License has been selected for the YGdrone project to allow users and developers to freely use, edit, and distribute the project's source code while providing the required permissions and constraints. It stimulates collaboration, and implementation, and guarantees that users understand their rights and duties when using your product.
+
+ Ongoing Collaboration:
+As the YG-Drone-Project evolves, its licensing terms remain constant. Developers, users, and contributors can continue to build upon and share their work under the same licensing framework, facilitating ongoing collaboration.
+
+The MIT License's simplicity, clarity, and permissive nature align well with the principles of open-source development and collaborative software projects like the YG-Drone-Project. It empowers users to leverage the project's capabilities while maintaining the integrity of the original license and copyright notice.
+
+
+
+
+
